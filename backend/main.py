@@ -1,4 +1,6 @@
+
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from typing import Optional
@@ -7,7 +9,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 app = FastAPI()
+
+# Enable CORS for Vercel frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://where-is-my-husband-app.vercel.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # MongoDB connection
 MONGO_URI = os.getenv(

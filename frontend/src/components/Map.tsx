@@ -20,15 +20,14 @@ const customIcon = new Icon({
 });
 
 const Map: React.FC<MapProps> = ({ location }) => {
-  // Use maximum zoom for best visibility
-  const zoom = 100;
+  // Use default zoom logic
+  const zoom = location ? 22 : 2;
   const isZero = location && (location.latitude === 0 && location.longitude === 0);
   return (
     <MapContainer
       center={location ? [location.latitude, location.longitude] as LatLngTuple : defaultPosition}
       zoom={zoom}
-      maxZoom={100}
-      minZoom={2}
+      // default zoom settings (no maxZoom/minZoom)
       style={{ height: '100%', width: '100%' }}
     >
       <TileLayer

@@ -38,6 +38,11 @@ export default function Home() {
       <div style={{ height: 400, marginTop: 20 }}>
         <Map location={location} />
       </div>
+      {location && (
+        <div style={{ marginTop: 10, color: '#333' }}>
+          <strong>Coordinates:</strong> {location.latitude}, {location.longitude}
+        </div>
+      )}
     </div>
   );
 }

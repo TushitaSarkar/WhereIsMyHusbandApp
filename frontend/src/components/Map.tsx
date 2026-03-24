@@ -11,10 +11,13 @@ interface MapProps {
 const defaultPosition: LatLngTuple = [20, 0]; // Center of the world
 
 const Map: React.FC<MapProps> = ({ location }) => {
+  // Use a higher zoom for better visibility
+  const zoom = location ? 18 : 2;
+  const isZero = location && (location.latitude === 0 && location.longitude === 0);
   return (
     <MapContainer
       center={location ? [location.latitude, location.longitude] as LatLngTuple : defaultPosition}
-      zoom={location ? 15 : 2}
+      zoom={zoom}
       style={{ height: '100%', width: '100%' }}
     >
       <TileLayer
@@ -24,6 +27,11 @@ const Map: React.FC<MapProps> = ({ location }) => {
       {location && (
         <Marker position={[location.latitude, location.longitude] as LatLngTuple}>
           <Popup>Device Location</Popup>
+        </Marker>
+      )}
+      {isZero && (
+        <Marker position={defaultPosition}>
+          <Popup>Default Position (0,0)</Popup>
         </Marker>
       )}
     </MapContainer>

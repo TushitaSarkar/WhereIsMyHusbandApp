@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -48,3 +47,9 @@ async def get_location(device_id: str):
         raise HTTPException(status_code=404, detail="Device not found")
     loc.pop("_id", None)
     return loc
+
+# Add entrypoint for Railway deployment
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)

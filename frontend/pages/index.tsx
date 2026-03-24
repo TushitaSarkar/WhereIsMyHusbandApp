@@ -9,7 +9,7 @@ export default function Home() {
 
   const fetchLocation = async () => {
     if (!deviceId) return;
-    const res = await fetch(`http://localhost:8000/location/${deviceId}`);
+    const res = await fetch(`https://whereismyhusbandapp-production.up.railway.app/location/${deviceId}`);
     if (res.ok) {
       const data = await res.json();
       setLocation({ latitude: data.latitude, longitude: data.longitude });
@@ -17,6 +17,7 @@ export default function Home() {
       setLocation(null);
     }
   };
+  
 
   useEffect(() => {
     fetchLocation();

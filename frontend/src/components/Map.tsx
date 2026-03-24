@@ -1,17 +1,19 @@
+
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { LatLngTuple } from 'leaflet';
 
 interface MapProps {
   location: { latitude: number; longitude: number } | null;
 }
 
-const defaultPosition = [20, 0]; // Center of the world
+const defaultPosition: LatLngTuple = [20, 0]; // Center of the world
 
 const Map: React.FC<MapProps> = ({ location }) => {
   return (
     <MapContainer
-      center={location ? [location.latitude, location.longitude] : defaultPosition}
+      center={location ? [location.latitude, location.longitude] as LatLngTuple : defaultPosition}
       zoom={location ? 15 : 2}
       style={{ height: '100%', width: '100%' }}
     >
@@ -20,7 +22,7 @@ const Map: React.FC<MapProps> = ({ location }) => {
         attribution="&copy; OpenStreetMap contributors"
       />
       {location && (
-        <Marker position={[location.latitude, location.longitude]}>
+        <Marker position={[location.latitude, location.longitude] as LatLngTuple}>
           <Popup>Device Location</Popup>
         </Marker>
       )}
